@@ -26,7 +26,7 @@ public class ClientBasicAuth extends Client {
     String defaultPassArray = PropertiesHelper.getAppProperties().getProperty("api.password");
     int port = Integer.parseInt(PropertiesHelper.getAppProperties().getProperty("api.port"));
 
-    public CloseableHttpClient getClientWithBasicAuthCredentials() {
+    private CloseableHttpClient getClientWithBasicAuthCredentials() {
         return HttpClientBuilder.create().setDefaultCredentialsProvider(getBasiAuthCredentials()).build();
     }
 
