@@ -7,12 +7,9 @@ import java.util.List;
 @Getter
 public class ZipCodesResponse {
 
-    public int status;
-
     public List<String> zipCodes;
 
-    public ZipCodesResponse(int status, List<String> zipCodes) {
-        this.status = status;
+    public ZipCodesResponse(List<String> zipCodes) {
         this.zipCodes = zipCodes;
     }
 

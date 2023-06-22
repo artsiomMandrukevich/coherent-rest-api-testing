@@ -19,12 +19,14 @@ public class ClientBasicAuth extends Client {
 
     Client client = new Client();
     static ObjectMapper objectMapper = new ObjectMapper();
+    PropertiesHelper props = new PropertiesHelper();
 
-    String hostName = PropertiesHelper.getAppProperties().getProperty("api.host.name");
-    String scheme = PropertiesHelper.getAppProperties().getProperty("api.scheme");
-    String defaultUser = PropertiesHelper.getAppProperties().getProperty("api.user");
-    String defaultPassArray = PropertiesHelper.getAppProperties().getProperty("api.password");
-    int port = Integer.parseInt(PropertiesHelper.getAppProperties().getProperty("api.port"));
+
+    String hostName = props.getAppProp().getProperty("api.host.name");
+    String scheme = props.getAppProp().getProperty("api.scheme");
+    String defaultUser = props.getAppProp().getProperty("api.user");
+    String defaultPassArray = props.getAppProp().getProperty("api.password");
+    int port = Integer.parseInt(props.getAppProp().getProperty("api.port"));
 
     private CloseableHttpClient getClientWithBasicAuthCredentials() {
         return HttpClientBuilder.create().setDefaultCredentialsProvider(getBasiAuthCredentials()).build();

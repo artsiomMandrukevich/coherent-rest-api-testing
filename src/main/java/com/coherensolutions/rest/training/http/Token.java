@@ -6,9 +6,10 @@ public class Token {
 
     private static String writeToken;
     private static String readToken;
+    PropertiesHelper props = new PropertiesHelper();
 
-    String urlForWriteToken = PropertiesHelper.getAppProperties().getProperty("api.url.write");
-    String urlForReadToken = PropertiesHelper.getAppProperties().getProperty("api.url.read");
+    String urlForWriteToken = props.getAppProp().getProperty("api.url.write");
+    String urlForReadToken = props.getAppProp().getProperty("api.url.read");
 
     ClientBasicAuth clientBasicAuth = new ClientBasicAuth();
 

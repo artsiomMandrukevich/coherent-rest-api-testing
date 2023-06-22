@@ -10,7 +10,7 @@ import java.util.Properties;
 public class PropertiesHelper {
 
     @SneakyThrows
-    public static Properties getAppProperties() {
+    public Properties getAppProp() {
         Path currentWorkingDir = Paths.get("").toAbsolutePath();
         String rootPath = currentWorkingDir.normalize() + "/src/main/resources/";
 
