@@ -12,10 +12,16 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ClientZipCodes {
 
-    Token token = Token.getInstance();
-    Client client = new Client();
-    Handler handler = new Handler();
+    private final Token token;
+    private final Client client;
+    private final Handler handler;
     PropertiesHelper props = new PropertiesHelper();
+
+    public ClientZipCodes() {
+        token = Token.getInstance();
+        client = new Client();
+        handler = new Handler();
+    }
 
     private final String urlGetZipCodes = props.getAppProp().getProperty("api.url.get.zipcodes");
     private final String urlPostZipCodes = props.getAppProp().getProperty("api.url.post.zipcodes");
