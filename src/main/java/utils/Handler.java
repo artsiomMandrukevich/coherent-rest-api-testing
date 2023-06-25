@@ -12,12 +12,12 @@ import java.util.List;
 public class Handler {
 
     @SneakyThrows
-    public StringEntity convertListIntoJsonBody(List<String> listBody) {
+    public static StringEntity convertListIntoJsonBody(List<String> listBody) {
         return new StringEntity(listBody.toString());
     }
 
     @SneakyThrows
-    public List<String> getListFromResponse(CloseableHttpResponse response) {
+    public static List<String> getListFromResponse(CloseableHttpResponse response) {
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonBody = EntityUtils.toString(response.getEntity());
         return objectMapper.readValue(jsonBody, new TypeReference<>() {

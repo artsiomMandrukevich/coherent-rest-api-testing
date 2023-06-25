@@ -14,13 +14,11 @@ public class ClientZipCodes {
 
     private final Token token;
     private final Client client;
-    private final Handler handler;
     PropertiesHelper props = new PropertiesHelper();
 
     public ClientZipCodes() {
         token = Token.getInstance();
         client = new Client();
-        handler = new Handler();
     }
 
     private final String urlGetZipCodes = props.getAppProp().getProperty("api.url.get.zipcodes");
@@ -34,14 +32,14 @@ public class ClientZipCodes {
 
     @SneakyThrows
     public ZipCodesResponse sendPostZipCodes(List<String> listOfZipCodes, int statusCode) {
-        CloseableHttpResponse response = client.sendPost(urlPostZipCodes, token.getWriteToken(), handler.convertListIntoJsonBody(listOfZipCodes));
+        CloseableHttpResponse response = client.sendPost(urlPostZipCodes, token.getWriteToken(), Handler.convertListIntoJsonBody(listOfZipCodes));
         return getListZipFromBody(response, statusCode);
     }
 
     @SneakyThrows
-    public ZipCodesResponse getListZipFromBody(CloseableHttpResponse response, int statusCode) {
+    private ZipCodesResponse getListZipFromBody(CloseableHttpResponse response, int statusCode) {
         assertEquals(statusCode, response.getStatusLine().getStatusCode());
-        ZipCodesResponse zipCodesResponse = new ZipCodesResponse(handler.getListFromResponse((response)));
+        ZipCodesResponse zipCodesResponse = new ZipCodesResponse(Handler.getListFromResponse((response)));
         response.close();
         return zipCodesResponse;
     }
