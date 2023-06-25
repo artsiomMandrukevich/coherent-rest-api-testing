@@ -32,7 +32,7 @@ public class ClientZipCodes {
 
     @SneakyThrows
     public ZipCodesResponse sendPostZipCodes(List<String> listOfZipCodes, int statusCode) {
-        CloseableHttpResponse response = client.sendPost(urlPostZipCodes, token.getWriteToken(), Handler.convertListIntoJsonBody(listOfZipCodes));
+        CloseableHttpResponse response = client.sendPost(urlPostZipCodes, token.getWriteToken(), Handler.convertListIntoStringEntity(listOfZipCodes));
         return getListZipFromBody(response, statusCode);
     }
 

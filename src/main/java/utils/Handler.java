@@ -12,8 +12,13 @@ import java.util.List;
 public class Handler {
 
     @SneakyThrows
-    public static StringEntity convertListIntoJsonBody(List<String> listBody) {
+    public static StringEntity convertListIntoStringEntity(List<String> listBody) {
         return new StringEntity(listBody.toString());
+    }
+
+    @SneakyThrows
+    public static StringEntity convertJsonIntoStringEntity(String json) {
+        return new StringEntity(json);
     }
 
     @SneakyThrows
