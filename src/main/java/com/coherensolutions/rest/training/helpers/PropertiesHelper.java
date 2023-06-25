@@ -3,14 +3,17 @@ package com.coherensolutions.rest.training.helpers;
 import lombok.SneakyThrows;
 
 import java.io.FileInputStream;
-import java.util.Objects;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 
 public class PropertiesHelper {
 
     @SneakyThrows
-    public static Properties getAppProperties() {
-        String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
+    public Properties getAppProp() {
+        Path currentWorkingDir = Paths.get("").toAbsolutePath();
+        String rootPath = currentWorkingDir.normalize() + "/src/main/resources/";
+
         String appConfigPath = rootPath + "app.properties";
 
         Properties appProps = new Properties();
@@ -18,4 +21,5 @@ public class PropertiesHelper {
 
         return appProps;
     }
+
 }
