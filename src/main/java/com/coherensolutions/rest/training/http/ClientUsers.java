@@ -30,8 +30,12 @@ public class ClientUsers {
     private final String urlUsers = props.getAppProp().getProperty("api.url.users");
 
     @SneakyThrows
-    public int sendPostUsers(String json) {
-        CloseableHttpResponse response = client.sendPost(urlUsers, token.getWriteToken(), Handler.convertJsonIntoStringEntity(json));
+    public int sendPostUsers(User user) {
+        CloseableHttpResponse response = client.sendPost(
+                urlUsers,
+                token.getWriteToken(),
+                Handler.convertJsonIntoStringEntity(objectMapper.writeValueAsString(user))
+        );
         int statusCode = response.getStatusLine().getStatusCode();
         response.close();
         return statusCode;

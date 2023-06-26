@@ -12,6 +12,23 @@ public class User {
     private String sex;
     private String zipCode;
 
+    public User() {
+    }
+
+    public User(String name, int age, String sex, String zipCode) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+        this.zipCode = zipCode;
+    }
+
+    public User(String name, int age, String sex) {
+        this.name = name;
+        this.age = age;
+        this.sex = sex;
+    }
+
+
     @Override
     public boolean equals(Object obj) {
         User other = (User) obj;
