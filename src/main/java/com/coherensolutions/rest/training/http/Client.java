@@ -54,9 +54,9 @@ public class Client {
         return httpClient.execute(httpGet);
     }
 
-    public List<NameValuePair> setQueryParameter(String parameter, String value) {
+    public List<NameValuePair> setQueryParameter(String keyParam, String valueParam) {
         List<NameValuePair> nameValuePairs = new ArrayList<>();
-        NameValuePair par = new BasicNameValuePair(parameter, value);
+        NameValuePair par = new BasicNameValuePair(keyParam, valueParam);
         nameValuePairs.add(par);
         return nameValuePairs;
     }
