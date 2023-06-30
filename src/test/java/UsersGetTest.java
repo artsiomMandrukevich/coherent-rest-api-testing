@@ -42,7 +42,7 @@ public class UsersGetTest extends BaseTest {
         assertThat(users).filteredOnAssertions(user -> assertThat(user.getAge()).isGreaterThan(valueParam)).hasSize(0);
     }
 
-    @Order(2)
+    @Order(3)
     @DisplayName("Scenario #4. Task 40. Validate the sex filter.")
     @Test()
     void usersGetSexTest() {
