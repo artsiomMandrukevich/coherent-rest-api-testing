@@ -56,7 +56,7 @@ public class UsersPutPatchTest extends BaseTest {
         User userToUpdatePatch = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setIncorrectZipCode());
 
         // create a test zipCodes into the application
-        List<String> expectedZipCodes = new ArrayList<>(List.of(userToChangePut.getZipCode(), userToChangePatch.getZipCode()));
+        List<String> expectedZipCodes = new ArrayList<>(List.of(userToChangePut.getZipCode(), userToChangePatch.getZipCode(), userToChangePut.getZipCode(), userToChangePatch.getZipCode()));
         clientZipCodes.sendPostZipCodes(expectedZipCodes, 201);
 
         // PUT
@@ -91,7 +91,7 @@ public class UsersPutPatchTest extends BaseTest {
         User userToUpdatePatch = new User(populator.setAge(), populator.setZipCode());
 
         // create a test zipCodes into the application
-        List<String> expectedZipCodes = new ArrayList<>(List.of(userToChangePut.getZipCode(), userToChangePatch.getZipCode()));
+        List<String> expectedZipCodes = new ArrayList<>(List.of(userToChangePut.getZipCode(), userToChangePatch.getZipCode(), userToChangePut.getZipCode(), userToChangePatch.getZipCode()));
         clientZipCodes.sendPostZipCodes(expectedZipCodes, 201);
 
         // PUT
