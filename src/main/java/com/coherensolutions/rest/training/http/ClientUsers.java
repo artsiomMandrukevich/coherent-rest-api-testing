@@ -51,4 +51,14 @@ public class ClientUsers {
         return listUser;
     }
 
+    @SneakyThrows
+    public List<User> sendGetUsers(GetKeyParameter keyParam, String valueParam) {
+        CloseableHttpResponse response = client.sendGet(urlUsers, token.getReadToken(), keyParam, valueParam);
+        assertEquals(200, response.getStatusLine().getStatusCode());
+        String jsonBody = EntityUtils.toString(response.getEntity());
+        List<User> listUser = objectMapper.readValue(jsonBody, new TypeReference<>() {});
+        response.close();
+        return listUser;
+    }
+
 }
