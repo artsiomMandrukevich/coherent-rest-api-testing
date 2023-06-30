@@ -3,9 +3,7 @@ package com.coherensolutions.rest.training.http;
 import lombok.SneakyThrows;
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
+import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -60,5 +58,28 @@ public class Client {
         nameValuePairs.add(par);
         return nameValuePairs;
     }
+
+    @SneakyThrows
+    public CloseableHttpResponse sendPut(String url, String bearerToken, StringEntity jsonBody) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPut httpPut = new HttpPut(url);
+        httpPut.setEntity(jsonBody);
+        httpPut.setHeader(HttpHeaders.AUTHORIZATION, "Bearer" + bearerToken);
+        httpPut.setHeader(HttpHeaders.ACCEPT, "application/json");
+        httpPut.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        return httpClient.execute(httpPut);
+    }
+
+    @SneakyThrows
+    public CloseableHttpResponse sendPatch(String url, String bearerToken, StringEntity jsonBody) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPatch httpPatch = new HttpPatch(url);
+        httpPatch.setEntity(jsonBody);
+        httpPatch.setHeader(HttpHeaders.AUTHORIZATION, "Bearer" + bearerToken);
+        httpPatch.setHeader(HttpHeaders.ACCEPT, "application/json");
+        httpPatch.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        return httpClient.execute(httpPatch);
+    }
+
 
 }
