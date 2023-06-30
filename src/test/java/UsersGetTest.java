@@ -1,5 +1,6 @@
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.User;
+import com.coherensolutions.rest.training.http.GetKeyParameter;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -26,9 +27,8 @@ public class UsersGetTest extends BaseTest {
     @DisplayName("Scenario #2. Task 40. Validate that the olderThan filter.")
     @Test()
     void usersGetOlderThanTest() {
-        String keyParam = "olderThan";
         int valueParam = 37;
-        List<User> users = clientUsers.sendGetUsers(keyParam, String.valueOf(valueParam));
+        List<User> users = clientUsers.sendGetUsers(GetKeyParameter.OLDERTHAN, String.valueOf(valueParam));
         assertThat(users).filteredOnAssertions(user -> assertThat(user.getAge()).isLessThan(valueParam)).hasSize(0);
     }
 
@@ -36,9 +36,8 @@ public class UsersGetTest extends BaseTest {
     @DisplayName("Scenario #3. Task 40. Validate the youngerThan filter")
     @Test()
     void usersGetYoungerThanTest() {
-        String keyParam = "youngerThan";
         int valueParam = 37;
-        List<User> users = clientUsers.sendGetUsers(keyParam, String.valueOf(valueParam));
+        List<User> users = clientUsers.sendGetUsers(GetKeyParameter.YOUNGERTHAN, String.valueOf(valueParam));
         assertThat(users).filteredOnAssertions(user -> assertThat(user.getAge()).isGreaterThan(valueParam)).hasSize(0);
     }
 
@@ -46,9 +45,8 @@ public class UsersGetTest extends BaseTest {
     @DisplayName("Scenario #4. Task 40. Validate the sex filter.")
     @Test()
     void usersGetSexTest() {
-        String keyParam = "sex";
         String valueParam = "FEMALE";
-        List<User> users = clientUsers.sendGetUsers(keyParam, valueParam);
+        List<User> users = clientUsers.sendGetUsers(GetKeyParameter.SEX, valueParam);
         assertThat(users).filteredOnAssertions(user -> assertThat(user.getSex()).isNotEqualTo(valueParam)).hasSize(0);
     }
 

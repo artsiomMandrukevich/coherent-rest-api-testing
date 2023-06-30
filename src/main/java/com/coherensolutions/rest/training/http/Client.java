@@ -44,10 +44,10 @@ public class Client {
     }
 
     @SneakyThrows
-    public CloseableHttpResponse sendGet(String url, String bearerToken, String keyParam, String valueParam) {
+    public CloseableHttpResponse sendGet(String url, String bearerToken, GetKeyParameter keyParam, String valueParam) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpGet httpGet = new HttpGet(url);
-        URI uri = new URIBuilder(httpGet.getURI()).addParameters(setQueryParameter(keyParam, valueParam))
+        URI uri = new URIBuilder(httpGet.getURI()).addParameters(setQueryParameter(keyParam.value, valueParam))
                 .build();
         httpGet.setURI(uri);
         httpGet.setHeader(HttpHeaders.AUTHORIZATION, "Bearer" + bearerToken);
