@@ -81,5 +81,15 @@ public class Client {
         return httpClient.execute(httpPatch);
     }
 
+    @SneakyThrows
+    public CloseableHttpResponse sendDelete(String url, String bearerToken, StringEntity jsonBody) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        MyHttpDelete httpDelete = new MyHttpDelete(url);
+        httpDelete.setEntity(jsonBody);
+        httpDelete.setHeader(HttpHeaders.AUTHORIZATION, "Bearer" + bearerToken);
+        httpDelete.setHeader(HttpHeaders.ACCEPT, "application/json");
+        httpDelete.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        return httpClient.execute(httpDelete);
+    }
 
 }

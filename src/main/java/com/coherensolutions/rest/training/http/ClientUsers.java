@@ -85,5 +85,16 @@ public class ClientUsers {
         return statusCode;
     }
 
+    @SneakyThrows
+    public int sendDeleteUsers(User user) {
+        CloseableHttpResponse response = client.sendDelete(
+                urlUsers,
+                token.getWriteToken(),
+                Handler.convertJsonIntoStringEntity(objectMapper.writeValueAsString(user))
+        );
+        int statusCode = response.getStatusLine().getStatusCode();
+        response.close();
+        return statusCode;
+    }
 
 }

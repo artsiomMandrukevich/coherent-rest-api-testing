@@ -27,6 +27,11 @@ public class User {
         this.zipCode = zipCode;
     }
 
+    public User(String name, String sex) {
+        this.name = name;
+        this.sex = sex;
+    }
+
     public User(String name, int age, String sex) {
         this.name = name;
         this.age = age;
