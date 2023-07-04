@@ -16,7 +16,7 @@ public class UsersPutPatchTest extends BaseTest {
     @Order(1)
     @DisplayName("Scenario #1. Task 50. Send PUT/PATCH with full body.")
     @Test()
-    void usersPutPathGoldenPathTest() {
+    void usersPutPatchGoldenPathTest() {
         User userToChange = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
         User userToUpdate = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
 
@@ -49,7 +49,7 @@ public class UsersPutPatchTest extends BaseTest {
     @Order(2)
     @DisplayName("Scenario #2. Task 50. Send PUT/PATCH with incorrect zipCode.")
     @Test()
-    void usersPutPathIncorrectZipCodeTest() {
+    void usersPutPatchIncorrectZipCodeTest() {
         User userToChangePut = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
         User userToUpdatePut = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setIncorrectZipCode());
         User userToChangePatch = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
@@ -84,7 +84,7 @@ public class UsersPutPatchTest extends BaseTest {
     @Order(3)
     @DisplayName("Scenario #3. Task 50. Required fields are missing in PUT/PATCH.")
     @Test()
-    void usersPutPathRequiredFieldAreMissingTest() {
+    void usersPutPatchRequiredFieldAreMissingTest() {
         User userToChangePut = new User(populator.setAge(), populator.setZipCode());
         User userToUpdatePut = new User(populator.setAge(), populator.setZipCode());
         User userToChangePatch = new User(populator.setAge(), populator.setZipCode());
@@ -108,7 +108,7 @@ public class UsersPutPatchTest extends BaseTest {
         // create a new user that will be changed through PATCH endpoint.
         clientUsers.sendPostUsers(userToChangePatch);
         // update the user through PATCH endpoint
-        assertEquals(400, clientUsers.sendPatchUsers(userToChangePatch, userToUpdatePatch));
+        assertEquals(409, clientUsers.sendPatchUsers(userToChangePatch, userToUpdatePatch));
         // assert that the changed user is not removed from the application
         assertTrue(clientUsers.sendGetUsers().contains(userToChangePatch));
         // assert that the updated user is not added to application
