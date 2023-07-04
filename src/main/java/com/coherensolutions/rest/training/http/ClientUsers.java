@@ -61,4 +61,40 @@ public class ClientUsers {
         return listUser;
     }
 
+    @SneakyThrows
+    public int sendPutUsers(User userToChange, User userToUpdate) {
+        CloseableHttpResponse response = client.sendPut(
+                urlUsers,
+                token.getWriteToken(),
+                Handler.convertJsonIntoStringEntity(Handler.convertUsersIntoJsonForPutPatch(userToChange, userToUpdate))
+        );
+        int statusCode = response.getStatusLine().getStatusCode();
+        response.close();
+        return statusCode;
+    }
+
+    @SneakyThrows
+    public int sendPatchUsers(User userToChange, User userToUpdate) {
+        CloseableHttpResponse response = client.sendPatch(
+                urlUsers,
+                token.getWriteToken(),
+                Handler.convertJsonIntoStringEntity(Handler.convertUsersIntoJsonForPutPatch(userToChange, userToUpdate))
+        );
+        int statusCode = response.getStatusLine().getStatusCode();
+        response.close();
+        return statusCode;
+    }
+
+    @SneakyThrows
+    public int sendDeleteUsers(User user) {
+        CloseableHttpResponse response = client.sendDelete(
+                urlUsers,
+                token.getWriteToken(),
+                Handler.convertJsonIntoStringEntity(objectMapper.writeValueAsString(user))
+        );
+        int statusCode = response.getStatusLine().getStatusCode();
+        response.close();
+        return statusCode;
+    }
+
 }
