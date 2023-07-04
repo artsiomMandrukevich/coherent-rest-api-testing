@@ -1,11 +1,14 @@
 package com.coherensolutions.rest.training.http;
 
 import lombok.SneakyThrows;
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.methods.*;
 import org.apache.http.client.utils.URIBuilder;
+import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
@@ -31,6 +34,21 @@ public class Client {
         httpPost.setHeader(HttpHeaders.ACCEPT, "application/json");
         httpPost.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
         return httpClient.execute(httpPost);
+    }
+
+    @SneakyThrows
+    public CloseableHttpResponse sendPostMultipartUpload(String url, String bearerToken, byte[] message) {
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);
+        httpPost.setEntity(setMultipartHttpEntity(message));
+        httpPost.setHeader(HttpHeaders.AUTHORIZATION, "Bearer" + bearerToken);
+        return httpClient.execute(httpPost);
+    }
+
+    private HttpEntity setMultipartHttpEntity(byte[] message) {
+        MultipartEntityBuilder builder = MultipartEntityBuilder.create();
+        builder.addBinaryBody("file", message, ContentType.DEFAULT_BINARY, "TEXTFILENAME");
+        return builder.build();
     }
 
     @SneakyThrows
