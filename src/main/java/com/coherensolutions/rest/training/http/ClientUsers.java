@@ -28,6 +28,7 @@ public class ClientUsers {
     }
 
     private final String urlUsers = props.getAppProp().getProperty("api.url.users");
+    private final String urlUsersUpload = props.getAppProp().getProperty("api.url.users.upload");
 
     @SneakyThrows
     public int sendPostUsers(User user) {
@@ -95,6 +96,19 @@ public class ClientUsers {
         int statusCode = response.getStatusLine().getStatusCode();
         response.close();
         return statusCode;
+    }
+
+    @SneakyThrows
+    public String sendPostUploadUsers(User userFirst, User userSecond, int statusCode) {
+        CloseableHttpResponse response = client.sendPostMultipartUpload(
+                urlUsersUpload,
+                token.getWriteToken(),
+                Handler.convertStringIntoBytes(Handler.convertUsersIntoJsonStringForPostUpload(userFirst, userSecond))
+        );
+        assertEquals(statusCode, response.getStatusLine().getStatusCode());
+        String responseMessage = EntityUtils.toString(response.getEntity());
+        response.close();
+        return responseMessage;
     }
 
 }

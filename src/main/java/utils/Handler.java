@@ -8,6 +8,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.util.EntityUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,5 +40,18 @@ public class Handler {
         payloadPath.put("userToChange",userToChange);
         return new ObjectMapper().writeValueAsString(payloadPath);
     }
+
+    @SneakyThrows
+    public static String convertUsersIntoJsonStringForPostUpload(User userFirst, User userSecond) {
+        List<User> payloadPath = new ArrayList<>();
+        payloadPath.add(userFirst);
+        payloadPath.add(userSecond);
+        return new ObjectMapper().writeValueAsString(payloadPath);
+    }
+
+    public static byte[] convertStringIntoBytes(String json) {
+        return json.getBytes();
+    }
+
 
 }
