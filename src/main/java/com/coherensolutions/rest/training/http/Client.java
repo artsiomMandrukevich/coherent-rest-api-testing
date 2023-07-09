@@ -1,5 +1,6 @@
 package com.coherensolutions.rest.training.http;
 
+import io.qameta.allure.Allure;
 import lombok.SneakyThrows;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
@@ -12,6 +13,7 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.util.EntityUtils;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -27,6 +29,7 @@ public class Client {
 
     @SneakyThrows
     public CloseableHttpResponse sendPost(String url, String bearerToken, StringEntity jsonBody) {
+        Allure.addAttachment("Payload:", EntityUtils.toString(jsonBody));
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
         httpPost.setEntity(jsonBody);
@@ -38,6 +41,7 @@ public class Client {
 
     @SneakyThrows
     public CloseableHttpResponse sendPostMultipartUpload(String url, String bearerToken, byte[] message) {
+        Allure.addAttachment("Payload:", new String(message));
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPost httpPost = new HttpPost(url);
         httpPost.setEntity(setMultipartHttpEntity(message));
@@ -79,6 +83,7 @@ public class Client {
 
     @SneakyThrows
     public CloseableHttpResponse sendPut(String url, String bearerToken, StringEntity jsonBody) {
+        Allure.addAttachment("Payload:", EntityUtils.toString(jsonBody));
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPut httpPut = new HttpPut(url);
         httpPut.setEntity(jsonBody);
@@ -90,6 +95,7 @@ public class Client {
 
     @SneakyThrows
     public CloseableHttpResponse sendPatch(String url, String bearerToken, StringEntity jsonBody) {
+        Allure.addAttachment("Payload:", EntityUtils.toString(jsonBody));
         CloseableHttpClient httpClient = HttpClients.createDefault();
         HttpPatch httpPatch = new HttpPatch(url);
         httpPatch.setEntity(jsonBody);
@@ -101,6 +107,7 @@ public class Client {
 
     @SneakyThrows
     public CloseableHttpResponse sendDelete(String url, String bearerToken, StringEntity jsonBody) {
+        Allure.addAttachment("Payload:", EntityUtils.toString(jsonBody));
         CloseableHttpClient httpClient = HttpClients.createDefault();
         MyHttpDelete httpDelete = new MyHttpDelete(url);
         httpDelete.setEntity(jsonBody);

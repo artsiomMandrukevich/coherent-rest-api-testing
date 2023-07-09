@@ -1,5 +1,7 @@
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.User;
+import io.qameta.allure.Description;
+import io.qameta.allure.Issue;
 import org.junit.jupiter.api.*;
 
 import java.util.*;
@@ -14,7 +16,8 @@ public class UsersPutPatchTest extends BaseTest {
     }
 
     @Order(1)
-    @DisplayName("Scenario #1. Task 50. Send PUT/PATCH with full body.")
+    @DisplayName("Scenario #1. Task 50.")
+    @Description("Send PUT/PATCH with full body.")
     @Test()
     void usersPutPatchGoldenPathTest() {
         User userToChange = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
@@ -47,7 +50,9 @@ public class UsersPutPatchTest extends BaseTest {
     }
 
     @Order(2)
-    @DisplayName("Scenario #2. Task 50. Send PUT/PATCH with incorrect zipCode.")
+    @DisplayName("Scenario #2. Task 50.")
+    @Description("Send PUT/PATCH with incorrect zipCode.")
+    @Issue("Changed user is not removed from the application")
     @Test()
     void usersPutPatchIncorrectZipCodeTest() {
         User userToChangePut = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
@@ -82,7 +87,9 @@ public class UsersPutPatchTest extends BaseTest {
     }
 
     @Order(3)
-    @DisplayName("Scenario #3. Task 50. Required fields are missing in PUT/PATCH.")
+    @DisplayName("Scenario #3. Task 50.")
+    @Description("Required fields are missing in PUT/PATCH.")
+    @Issue("StatusCode of PUT endpoint is 400 instead of 409.")
     @Test()
     void usersPutPatchRequiredFieldAreMissingTest() {
         User userToChangePut = new User(populator.setAge(), populator.setZipCode());
