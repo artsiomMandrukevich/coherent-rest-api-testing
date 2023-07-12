@@ -1,5 +1,7 @@
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.User;
+import io.qameta.allure.Description;
+import io.qameta.allure.Issue;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
@@ -12,7 +14,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class UsersPostUploadTest extends BaseTest {
 
     @Order(1)
-    @DisplayName("Scenario #1. Task 70. Upload users through /users/upload endpoint")
+    @DisplayName("Scenario #1. Task 70.")
+    @Description("Upload users through /users/upload endpoint.")
     @Test()
     void usersPostUploadGoldenPathTest() {
         User userFirst = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
@@ -32,7 +35,9 @@ public class UsersPostUploadTest extends BaseTest {
     }
 
     @Order(2)
-    @DisplayName("Scenario #2. Task 70. Upload users with incorrect (unavailable) zip code")
+    @DisplayName("Scenario #2. Task 70.")
+    @Description("Upload users with incorrect (unavailable) zip code.")
+    @Issue("StatusCode of POST /upload endpoint is 500 instead of 424")
     @Test()
     void usersPostUploadIncorrectZipCodeTest() {
         User userFirst = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
@@ -50,7 +55,9 @@ public class UsersPostUploadTest extends BaseTest {
     }
 
     @Order(3)
-    @DisplayName("Scenario #3. Task 70. Upload users and one of user has missed required fields.")
+    @DisplayName("Scenario #3. Task 70.")
+    @Description("Upload users and one of user has missed required fields.")
+    @Issue("StatusCode of POST /upload endpoint is 500 instead of 409")
     @Test()
     void usersPostUploadMissedrequiredFieldsCodeTest() {
         User userFirst = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());

@@ -1,5 +1,7 @@
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.User;
+import io.qameta.allure.Description;
+import io.qameta.allure.Issue;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -13,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.*;
 public class UsersPostTest extends BaseTest {
 
     @Order(1)
-    @DisplayName("Scenario #1. Task 30. User is added to application when all fields are filled in")
+    @DisplayName("Scenario #1. Task 30.")
+    @Description("User is added to application when all fields are filled in")
     @Test()
     void usersPostAllFieldsTest() {
         User expectedUser = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
@@ -29,7 +32,8 @@ public class UsersPostTest extends BaseTest {
     }
 
     @Order(2)
-    @DisplayName("Scenario #2. Task 30. User is added to application when all fields are filled in")
+    @DisplayName("Scenario #2. Task 30.")
+    @Description("User is added to application when REQUIRED fields are filled in.")
     @Test()
     void usersPostRequiredFieldsTest() {
         User expectedUser = new User(populator.setName(), populator.setAge(), populator.setSex());
@@ -40,7 +44,8 @@ public class UsersPostTest extends BaseTest {
     }
 
     @Order(3)
-    @DisplayName("Scenario #3. Task 30. User is not added to application when the zipCode is incorrect")
+    @DisplayName("Scenario #3. Task 30.")
+    @Description("User is not added to application when the zipCode is incorrect.")
     @Test()
     void usersPostIncorrectZipCodeTest() {
         User expectedUser = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setIncorrectZipCode());
@@ -51,7 +56,9 @@ public class UsersPostTest extends BaseTest {
     }
 
     @Order(4)
-    @DisplayName("Scenario #4. Task 30. User is not added with the same name and sex as existing user in the system")
+    @DisplayName("Scenario #4. Task 30.")
+    @Description("User is not added with the same name and sex as existing user in the system.")
+    @Issue("StatusCode of POST endpoint is 400 instead of 201")
     @Test()
     void usersPostDuplicateUserTest() {
         String duplicatedName = populator.setName();

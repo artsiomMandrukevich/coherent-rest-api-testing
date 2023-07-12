@@ -1,5 +1,7 @@
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.User;
+import io.qameta.allure.Description;
+import io.qameta.allure.Issue;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -13,7 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class UsersDeleteTest extends BaseTest {
 
     @Order(1)
-    @DisplayName("Scenario #1. Task 60. Send DELETE with full body.")
+    @DisplayName("Scenario #1. Task 60.")
+    @Description("Send DELETE with full body.")
     @Test()
     void usersDeleteUserGoldenPathTest() {
         User userToDelete = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
@@ -32,7 +35,9 @@ public class UsersDeleteTest extends BaseTest {
     }
 
     @Order(2)
-    @DisplayName("Scenario #2. Task 60. Send DELETE with only required fields.")
+    @DisplayName("Scenario #2. Task 60.")
+    @Description("Send DELETE with only required fields.")
+    @Issue("User is not deleted from application")
     @Test()
     void usersDeleteUserRequiredFieldsPresentedTest() {
         User userToDelete = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
@@ -52,7 +57,8 @@ public class UsersDeleteTest extends BaseTest {
     }
 
     @Order(3)
-    @DisplayName("Scenario #3. Task 60. Send DELETE without required fields.")
+    @DisplayName("Scenario #3. Task 60.")
+    @Description("Send DELETE without required fields.")
     @Test()
     void usersDeleteUserRequiredFieldsMissedTest() {
         User userToDelete = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());

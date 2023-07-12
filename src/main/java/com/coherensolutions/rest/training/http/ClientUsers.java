@@ -4,6 +4,7 @@ import com.coherensolutions.rest.training.dto.response.User;
 import com.coherensolutions.rest.training.helpers.PropertiesHelper;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.qameta.allure.Step;
 import lombok.SneakyThrows;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.util.EntityUtils;
@@ -31,6 +32,7 @@ public class ClientUsers {
     private final String urlUsersUpload = props.getAppProp().getProperty("api.url.users.upload");
 
     @SneakyThrows
+    @Step("Create new Users in app")
     public int sendPostUsers(User user) {
         CloseableHttpResponse response = client.sendPost(
                 urlUsers,
@@ -43,6 +45,7 @@ public class ClientUsers {
     }
 
     @SneakyThrows
+    @Step("Get available Users from app")
     public List<User> sendGetUsers() {
         CloseableHttpResponse response = client.sendGet(urlUsers, token.getReadToken());
         assertEquals(200, response.getStatusLine().getStatusCode());
@@ -53,6 +56,7 @@ public class ClientUsers {
     }
 
     @SneakyThrows
+    @Step("Get available users from app by filter")
     public List<User> sendGetUsers(GetKeyParameter keyParam, String valueParam) {
         CloseableHttpResponse response = client.sendGet(urlUsers, token.getReadToken(), keyParam, valueParam);
         assertEquals(200, response.getStatusLine().getStatusCode());
@@ -63,6 +67,7 @@ public class ClientUsers {
     }
 
     @SneakyThrows
+    @Step("Change User through PUT")
     public int sendPutUsers(User userToChange, User userToUpdate) {
         CloseableHttpResponse response = client.sendPut(
                 urlUsers,
@@ -75,6 +80,7 @@ public class ClientUsers {
     }
 
     @SneakyThrows
+    @Step("Change User through PATCH")
     public int sendPatchUsers(User userToChange, User userToUpdate) {
         CloseableHttpResponse response = client.sendPatch(
                 urlUsers,
@@ -87,6 +93,7 @@ public class ClientUsers {
     }
 
     @SneakyThrows
+    @Step("Delete users from app")
     public int sendDeleteUsers(User user) {
         CloseableHttpResponse response = client.sendDelete(
                 urlUsers,
@@ -99,6 +106,7 @@ public class ClientUsers {
     }
 
     @SneakyThrows
+    @Step("Add Users in app through the Upload endpoint")
     public String sendPostUploadUsers(User userFirst, User userSecond, int statusCode) {
         CloseableHttpResponse response = client.sendPostMultipartUpload(
                 urlUsersUpload,

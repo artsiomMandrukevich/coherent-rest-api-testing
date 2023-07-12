@@ -1,6 +1,7 @@
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.User;
 import com.coherensolutions.rest.training.http.GetKeyParameter;
+import io.qameta.allure.Description;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
@@ -24,7 +25,8 @@ public class UsersGetTest extends BaseTest {
     }
 
     @Order(1)
-    @DisplayName("Scenario #2. Task 40. Validate that the olderThan filter.")
+    @DisplayName("Scenario #2. Task 40.")
+    @Description("Validate that the olderThan filter works as expected.")
     @Test()
     void usersGetOlderThanTest() {
         int valueParam = 37;
@@ -33,7 +35,8 @@ public class UsersGetTest extends BaseTest {
     }
 
     @Order(2)
-    @DisplayName("Scenario #3. Task 40. Validate the youngerThan filter")
+    @DisplayName("Scenario #3. Task 40.")
+    @Description("Validate the youngerThan filter works as expected")
     @Test()
     void usersGetYoungerThanTest() {
         int valueParam = 37;
@@ -42,7 +45,8 @@ public class UsersGetTest extends BaseTest {
     }
 
     @Order(3)
-    @DisplayName("Scenario #4. Task 40. Validate the sex filter.")
+    @DisplayName("Scenario #4. Task 40.")
+    @Description("Validate the sex filter works as expected.")
     @Test()
     void usersGetSexTest() {
         String valueParam = "FEMALE";
