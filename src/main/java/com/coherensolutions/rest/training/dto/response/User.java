@@ -3,6 +3,9 @@ package com.coherensolutions.rest.training.dto.response;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 public class User {
@@ -41,19 +44,20 @@ public class User {
     @Override
     public boolean equals(Object obj) {
         User other = (User) obj;
+        List<Boolean> booleans = new ArrayList<>();
         if (this.name != null) {
-            return this.name.equals(other.name);
+            booleans.add(this.name.equals(other.name));
         }
         if (this.age != other.age) {
-            return false;
+            booleans.add(false);
         }
         if (this.sex != null) {
-            return this.sex.equals(other.sex);
+            booleans.add(this.sex.equals(other.sex));
         }
         if (this.zipCode != null) {
-            return this.zipCode.equals(other.zipCode);
+            booleans.add(this.zipCode.equals(other.zipCode));
         }
-        return true;
+        return !booleans.contains(false);
     }
 
 }
