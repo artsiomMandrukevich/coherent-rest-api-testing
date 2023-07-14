@@ -26,32 +26,28 @@ public class RaClient {
         Allure.addAttachment("Payload:", json);
         given().auth().oauth2(bearerToken).contentType("application/json").body(json)
                 .when().post(url)
-                .then().statusCode(statusCode)
-                .extract().response();
+                .then().statusCode(statusCode);
     }
 
     public void raSendDelete(String url, String bearerToken, int statusCode, String json) {
         Allure.addAttachment("Payload:", json);
         given().auth().oauth2(bearerToken).contentType("application/json").body(json)
                 .when().delete(url)
-                .then().statusCode(statusCode)
-                .extract().response();
+                .then().statusCode(statusCode);
     }
 
     public void raSendPut(String url, String bearerToken, int statusCode, String json) {
         Allure.addAttachment("Payload:", json);
         given().auth().oauth2(bearerToken).contentType("application/json").body(json)
                 .when().put(url)
-                .then().statusCode(statusCode)
-                .extract().response();
+                .then().statusCode(statusCode);
     }
 
     public void raSendPatch(String url, String bearerToken, int statusCode, String json) {
         Allure.addAttachment("Payload:", json);
         given().auth().oauth2(bearerToken).contentType("application/json").body(json)
                 .when().patch(url)
-                .then().statusCode(statusCode)
-                .extract().response();
+                .then().statusCode(statusCode);
     }
 
     public Response raSendPostMultipartUpload(String url, String bearerToken, int statusCode, byte[] message) {
