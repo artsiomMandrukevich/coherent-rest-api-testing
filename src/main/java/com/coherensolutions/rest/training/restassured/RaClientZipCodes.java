@@ -24,13 +24,13 @@ public class RaClientZipCodes {
     @SneakyThrows
     @Step("Get available zipCodes from app")
     public List<String> raSendGetZipCodes(int statusCode) {
-        return raClient.raSendGet(urlGetZipCodes, raToken.getReadToken(), statusCode).as(new TypeRef<>() {});
+        return raClient.sendGet(urlGetZipCodes, raToken.getReadToken(), statusCode).as(new TypeRef<>() {});
     }
 
     @SneakyThrows
     @Step("Create new zipCodes in app")
     public void raSendPostZipCodes(List<String> listOfZipCodes, int statusCode) {
-        raClient.raSendPost(urlPostZipCodes, raToken.getWriteToken(), statusCode, listOfZipCodes.toString());
+        raClient.sendPost(urlPostZipCodes, raToken.getWriteToken(), statusCode, listOfZipCodes.toString());
     }
 
 }

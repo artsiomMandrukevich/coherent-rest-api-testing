@@ -31,13 +31,13 @@ public class RaClientUsers {
     @SneakyThrows
     @Step("Get available Users from app")
     public List<User> raSendGetUsers(int statusCode) {
-        return raClient.raSendGet(urlUsers, raToken.getReadToken(), statusCode).as(new TypeRef<>() {});
+        return raClient.sendGet(urlUsers, raToken.getReadToken(), statusCode).as(new TypeRef<>() {});
     }
 
     @SneakyThrows
     @Step("Get available Users from app")
     public List<User> raSendGetUsers(int statusCode, GetKeyParameter keyParam, String valueParam) {
-        return raClient.raSendGet(urlUsers
+        return raClient.sendGet(urlUsers
                 , raToken.getReadToken()
                 , statusCode
                 , keyParam.value
@@ -49,7 +49,7 @@ public class RaClientUsers {
     @SneakyThrows
     @Step("Create new Users in app")
     public void raSendPostUsers(User user, int statusCode) {
-        raClient.raSendPost(urlUsers
+        raClient.sendPost(urlUsers
                 , raToken.getWriteToken()
                 , statusCode
                 , objectMapper.writeValueAsString(user)
@@ -59,7 +59,7 @@ public class RaClientUsers {
     @SneakyThrows
     @Step("Delete users from app")
     public void raSendDeleteUsers(User user, int statusCode) {
-        raClient.raSendDelete(urlUsers
+        raClient.sendDelete(urlUsers
                 , raToken.getWriteToken()
                 , statusCode
                 , objectMapper.writeValueAsString(user)
@@ -69,7 +69,7 @@ public class RaClientUsers {
     @SneakyThrows
     @Step("Change User through PUT")
     public void raSendPutUsers(User userToChange, User userToUpdate, int statusCode) {
-        raClient.raSendPut(urlUsers
+        raClient.sendPut(urlUsers
                 , raToken.getWriteToken()
                 , statusCode
                 , Handler.convertUsersIntoJsonForPutPatch(userToChange, userToUpdate)
@@ -79,7 +79,7 @@ public class RaClientUsers {
     @SneakyThrows
     @Step("Change User through PATCH")
     public void raSendPatchUsers(User userToChange, User userToUpdate, int statusCode) {
-        raClient.raSendPatch(urlUsers
+        raClient.sendPatch(urlUsers
                 , raToken.getWriteToken()
                 , statusCode
                 , Handler.convertUsersIntoJsonForPutPatch(userToChange, userToUpdate)
@@ -89,7 +89,7 @@ public class RaClientUsers {
     @SneakyThrows
     @Step("Add Users in app through the Upload endpoint")
     public String raSendPostUploadUsers(User userFirst, User userSecond, int statusCode) {
-        Response response = raClient.raSendPostMultipartUpload(urlUsersUpload
+        Response response = raClient.sendPostMultipartUpload(urlUsersUpload
                 , raToken.getWriteToken()
                 , statusCode
                 , Handler.convertStringIntoBytes(Handler.convertUsersIntoJsonStringForPostUpload(userFirst, userSecond))
