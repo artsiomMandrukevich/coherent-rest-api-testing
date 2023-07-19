@@ -1,3 +1,5 @@
+package apache;
+
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.User;
 import com.coherensolutions.rest.training.http.GetKeyParameter;

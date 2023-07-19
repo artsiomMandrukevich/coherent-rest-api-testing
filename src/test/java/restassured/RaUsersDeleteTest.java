@@ -1,77 +1,76 @@
+package restassured;
+
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.User;
 import io.qameta.allure.Description;
-import io.qameta.allure.Issue;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-@TestInstance(TestInstance.Lifecycle.PER_CLASS)
-public class UsersDeleteTest extends BaseTest {
+public class RaUsersDeleteTest extends BaseTest {
 
     @Order(1)
     @DisplayName("Scenario #1. Task 60.")
     @Description("Send DELETE with full body.")
     @Test()
-    void usersDeleteUserGoldenPathTest() {
+    void raUsersDeleteUserGoldenPathTest() {
         User userToDelete = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
         // create a test zipCodes into the application
         List<String> expectedZipCodes = new ArrayList<>(List.of(userToDelete.getZipCode()));
-        clientZipCodes.sendPostZipCodes(expectedZipCodes, 201);
+        raClientZipCodes.raSendPostZipCodes(expectedZipCodes, 201);
         // create a new user that will be changed through PUT endpoint.
-        clientUsers.sendPostUsers(userToDelete);
+        raClientUsers.raSendPostUsers(userToDelete, 201);
 
         // delete the user through delete endpoint
-        assertEquals(204, clientUsers.sendDeleteUsers(userToDelete));
+        raClientUsers.raSendDeleteUsers(userToDelete, 204);
         // assert that the user has been deleted from the application
-        assertFalse(clientUsers.sendGetUsers().contains(userToDelete));
+        assertFalse(raClientUsers.raSendGetUsers(200).contains(userToDelete));
         // assert that the Zip code is returned in list of available zip codes
-        assertTrue(clientZipCodes.sendGetZipCodes(201).getZipCodes().contains(userToDelete.getZipCode()));
+        assertTrue(raClientZipCodes.raSendGetZipCodes(200).contains(userToDelete.getZipCode()));
     }
 
     @Order(2)
     @DisplayName("Scenario #2. Task 60.")
     @Description("Send DELETE with only required fields.")
-    @Issue("User is not deleted from application")
     @Test()
-    void usersDeleteUserRequiredFieldsPresentedTest() {
+    void raUsersDeleteUserRequiredFieldsPresentedTest() {
         User userToDelete = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
         User userToDeleteJson = new User(userToDelete.getName(), userToDelete.getSex());
         // create a test zipCodes into the application
         List<String> expectedZipCodes = new ArrayList<>(List.of(userToDelete.getZipCode()));
-        clientZipCodes.sendPostZipCodes(expectedZipCodes, 201);
+        raClientZipCodes.raSendPostZipCodes(expectedZipCodes, 201);
         // create a new user that will be changed through PUT endpoint.
-        clientUsers.sendPostUsers(userToDelete);
+        raClientUsers.raSendPostUsers(userToDelete, 201);
 
         // delete the user through delete endpoint
-        assertEquals(204, clientUsers.sendDeleteUsers(userToDeleteJson));
+        raClientUsers.raSendDeleteUsers(userToDeleteJson, 204);
         // assert that the user has been deleted from the application
-        assertFalse(clientUsers.sendGetUsers().contains(userToDelete));
+        assertFalse(raClientUsers.raSendGetUsers(200).contains(userToDelete));
         // assert that the Zip code is returned in list of available zip codes
-        assertTrue(clientZipCodes.sendGetZipCodes(201).getZipCodes().contains(userToDelete.getZipCode()));
+        assertTrue(raClientZipCodes.raSendGetZipCodes(200).contains(userToDelete.getZipCode()));
     }
 
     @Order(3)
     @DisplayName("Scenario #3. Task 60.")
     @Description("Send DELETE without required fields.")
     @Test()
-    void usersDeleteUserRequiredFieldsMissedTest() {
+    void raUsersDeleteUserRequiredFieldsMissedTest() {
         User userToDelete = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
         User userToDeleteJson = new User(userToDelete.getAge(), userToDelete.getZipCode());
         // create a test zipCodes into the application
         List<String> expectedZipCodes = new ArrayList<>(List.of(userToDelete.getZipCode()));
-        clientZipCodes.sendPostZipCodes(expectedZipCodes, 201);
+        raClientZipCodes.raSendPostZipCodes(expectedZipCodes, 201);
         // create a new user that will be changed through PUT endpoint.
-        clientUsers.sendPostUsers(userToDelete);
+        raClientUsers.raSendPostUsers(userToDelete, 201);
 
         // delete the user through delete endpoint
-        assertEquals(409, clientUsers.sendDeleteUsers(userToDeleteJson));
+        raClientUsers.raSendDeleteUsers(userToDeleteJson, 409);
         // assert that the user has been deleted from the application
-        assertTrue(clientUsers.sendGetUsers().contains(userToDelete));
+        assertTrue(raClientUsers.raSendGetUsers(200).contains(userToDelete));
     }
+
 }

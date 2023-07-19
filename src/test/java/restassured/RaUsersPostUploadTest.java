@@ -1,23 +1,25 @@
+package restassured;
+
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.User;
 import io.qameta.allure.Description;
 import io.qameta.allure.Issue;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class UsersPostUploadTest extends BaseTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class RaUsersPostUploadTest extends BaseTest {
 
     @Order(1)
     @DisplayName("Scenario #1. Task 70.")
     @Description("Upload users through /users/upload endpoint.")
     @Test()
-    void usersPostUploadGoldenPathTest() {
+    void raUsersPostUploadGoldenPathTest() {
         User userFirst = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
         User userSecond = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
         List<User> userList = new ArrayList<>(List.of(userFirst, userSecond));
@@ -25,13 +27,13 @@ public class UsersPostUploadTest extends BaseTest {
 
         // create a test zipCodes into the application
         List<String> expectedZipCodes = new ArrayList<>(List.of(userFirst.getZipCode(), userSecond.getZipCode()));
-        clientZipCodes.sendPostZipCodes(expectedZipCodes, 201);
+        raClientZipCodes.raSendPostZipCodes(expectedZipCodes, 201);
 
         // assert that responseCode is 201 and Response contains number of uploaded users
-        assertEquals(expectedResponseMessage, clientUsers.sendPostUploadUsers(userFirst, userSecond, 201));
+        assertEquals(expectedResponseMessage, raClientUsers.raSendPostUploadUsers(userFirst, userSecond, 201));
         // assert that All users are replaced with users from file
-        assertThat(clientUsers.sendGetUsers()).containsAll(userList);
-        assertThat(clientUsers.sendGetUsers().size()).isEqualTo(userList.size());
+        assertThat(raClientUsers.raSendGetUsers(200)).containsAll(userList);
+        assertThat(raClientUsers.raSendGetUsers(200).size()).isEqualTo(userList.size());
     }
 
     @Order(2)
@@ -39,19 +41,19 @@ public class UsersPostUploadTest extends BaseTest {
     @Description("Upload users with incorrect (unavailable) zip code.")
     @Issue("StatusCode of POST /upload endpoint is 500 instead of 424")
     @Test()
-    void usersPostUploadIncorrectZipCodeTest() {
+    void raUsersPostUploadIncorrectZipCodeTest() {
         User userFirst = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
         User userIncorrectZipCode = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setIncorrectZipCode());
         List<User> userList = new ArrayList<>(List.of(userFirst, userIncorrectZipCode));
 
         // create a test zipCodes into the application
         List<String> expectedZipCodes = new ArrayList<>(List.of(userFirst.getZipCode()));
-        clientZipCodes.sendPostZipCodes(expectedZipCodes, 201);
+        raClientZipCodes.raSendPostZipCodes(expectedZipCodes, 201);
 
         // assert that responseCode is 424
-        clientUsers.sendPostUploadUsers(userFirst, userIncorrectZipCode, 424);
+        raClientUsers.raSendPostUploadUsers(userFirst, userIncorrectZipCode, 424);
         // assert that Users are not uploaded
-        assertThat(clientUsers.sendGetUsers()).doesNotContainAnyElementsOf(userList);
+        assertThat(raClientUsers.raSendGetUsers(200)).doesNotContainAnyElementsOf(userList);
     }
 
     @Order(3)
@@ -59,19 +61,19 @@ public class UsersPostUploadTest extends BaseTest {
     @Description("Upload users and one of user has missed required fields.")
     @Issue("StatusCode of POST /upload endpoint is 500 instead of 409")
     @Test()
-    void usersPostUploadMissedrequiredFieldsCodeTest() {
+    void raUsersPostUploadMissedrequiredFieldsCodeTest() {
         User userFirst = new User(populator.setName(), populator.setAge(), populator.setSex(), populator.setZipCode());
         User userMissedRequiredFields = new User(populator.setAge(), populator.setZipCode());
         List<User> userList = new ArrayList<>(List.of(userFirst, userMissedRequiredFields));
 
         // create a test zipCodes into the application
         List<String> expectedZipCodes = new ArrayList<>(List.of(userFirst.getZipCode(), userMissedRequiredFields.getZipCode()));
-        clientZipCodes.sendPostZipCodes(expectedZipCodes, 201);
+        raClientZipCodes.raSendPostZipCodes(expectedZipCodes, 201);
 
         // assert that responseCode is 409
-        clientUsers.sendPostUploadUsers(userFirst, userMissedRequiredFields, 409);
+        raClientUsers.raSendPostUploadUsers(userFirst, userMissedRequiredFields, 409);
         // assert that Users are not uploaded
-        assertThat(clientUsers.sendGetUsers()).doesNotContainAnyElementsOf(userList);
+        assertThat(raClientUsers.raSendGetUsers(200)).doesNotContainAnyElementsOf(userList);
     }
 
 }

@@ -1,3 +1,5 @@
+package apache;
+
 import base.BaseTest;
 import com.coherensolutions.rest.training.dto.response.ZipCodesResponse;
 import io.qameta.allure.Description;
@@ -20,7 +22,7 @@ public class ZipCodesTest extends BaseTest {
     @Test()
     void zipCodesGetTest() {
         List<String> expectedZipCodes = new ArrayList<>(Arrays.asList("12345" ,"23456", "ABCDE"));
-        ZipCodesResponse zipCodesResponse = clientZipCodes.sendGetZipCodes(201);
+        ZipCodesResponse zipCodesResponse = clientZipCodes.sendGetZipCodes(200);
         assertTrue(zipCodesResponse.getZipCodes().containsAll(expectedZipCodes));
     }
 

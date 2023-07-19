@@ -23,7 +23,7 @@ public class RandomPopulator {
     }
 
     public String setIncorrectZipCode() {
-        return String.valueOf(faker.number().numberBetween(999991, 999999));
+        return String.valueOf(faker.number().numberBetween(9911111, 9999999));
     }
 
 }
